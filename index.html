@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAIRÓS - Plan de Facilitación y Precios</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #ffffff;
+            color: #2c2c2c;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        /* Logo animado */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            position: relative;
+        }
+
+        .logo-circle {
+            width: 100%;
+            height: 100%;
+            border: 3px solid #d4af37;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, rgba(212, 175, 55, 0.1), rgba(196, 164, 124, 0.1));
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.3);
+        }
+
+        .wave {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(212, 175, 55, 0.3) 50%, 
+                transparent 70%);
+            animation: wave-rotate 3s linear infinite;
+            transform-origin: center;
+        }
+
+        .wave:nth-child(2) {
+            background: linear-gradient(-45deg, 
+                transparent 30%, 
+                rgba(196, 164, 124, 0.4) 50%, 
+                transparent 70%);
+            animation: wave-rotate 4s linear infinite reverse;
+        }
+
+        .wave:nth-child(3) {
+            background: linear-gradient(90deg, 
+                transparent 40%, 
+                rgba(212, 175, 55, 0.2) 50%, 
+                transparent 60%);
+            animation: wave-rotate 5s linear infinite;
+        }
+
+        @keyframes wave-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(196, 164, 124, 0.05));
+            border-radius: 20px;
+            margin: 2rem;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #d4af37, #c4a47c, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 8px rgba(212, 175, 55, 0.3);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .header .subtitle {
+            font-size: 1.3rem;
+            color: #555;
+            font-style: italic;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .intro {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #333;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            line-height: 1.7;
+        }
+
+        /* Secciones principales */
+        .seccion-container {
+            padding: 2rem 1rem;
+            display: grid;
+            gap: 3rem;
+        }
+
+        .seccion-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 25px rgba(212, 175, 55, 0.1);
+        }
+
+        .seccion-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .seccion-title {
+            font-size: 2.2rem;
+            color: #d4af37;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            text-shadow: 2px 2px 6px rgba(212, 175, 55, 0.3);
+            text-align: center;
+        }
+
+        .seccion-subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 1rem;
+            text-align: center;
+        }
+
+        /* Tabla de precios */
+        .precio-grupo {
+            margin: 2rem 0;
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 0;
+            box-shadow: 0 3px 15px rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            overflow: hidden;
+        }
+
+        .precio-header {
+            background: linear-gradient(135deg, #d4af37, #c4a47c);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .precio-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .precio-table th {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 1.2rem;
+            text-align: left;
+            font-size: 1.1rem;
+            color: #333;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            font-weight: 600;
+        }
+
+        .precio-table td {
+            padding: 1.2rem;
+            font-size: 1.1rem;
+            color: #444;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .precio-table tr:hover {
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .modalidad-nombre {
+            font-weight: 600;
+            color: #d4af37;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .precio-destacado {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #d4af37;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Servicios adicionales */
+        .servicio-extra {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid #d4af37;
+            box-shadow: 0 3px 12px rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .servicio-extra h4 {
+            color: #d4af37;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .servicio-extra p {
+            font-size: 1.1rem;
+            color: #444;
+            margin: 0.5rem 0;
+        }
+
+        /* Destacados */
+        .info-destacada {
+            background: rgba(255, 248, 235, 0.9);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            text-align: center;
+        }
+
+        .info-destacada h3 {
+            color: #d4af37;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-destacada p {
+            font-size: 1.2rem;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Contacto */
+        .contacto-footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(196, 164, 124, 0.05));
+            margin: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.1);
+        }
+
+        .contacto-footer h3 {
+            color: #d4af37;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+            text-shadow: 2px 2px 6px rgba(212, 175, 55, 0.3);
+        }
+
+        .contacto-footer p {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        .whatsapp-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1.2rem 2.5rem;
+            background: linear-gradient(45deg, #25d366, #128c7e);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .header .intro {
+                font-size: 1.1rem;
+            }
+            
+            .seccion-card {
+                padding: 1.8rem;
+            }
+            
+            .seccion-title {
+                font-size: 1.8rem;
+            }
+            
+            .seccion-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .precio-header {
+                font-size: 1.2rem;
+                padding: 1.2rem;
+            }
+            
+            .precio-table th,
+            .precio-table td {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            
+            .precio-destacado {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Efectos de entrada */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-circle">
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                    </div>
+                </div>
+            </div>
+            <h1>KAIRÓS</h1>
+            <p class="subtitle">Plan de Facilitación y Precios</p>
+            <p class="intro">
+                Encuentra la modalidad perfecta para tu proceso de transformación energética. 
+                Precios transparentes y opciones flexibles para todos los grupos y necesidades.
+            </p>
+        </header>
+
+        <!-- Secciones principales -->
+        <div class="seccion-container">
+            
+            <!-- Grupos Grandes -->
+            <div class="seccion-card fade-in">
+                <div class="precio-grupo">
+                    <div class="precio-header">
+                        GRUPOS DE 14 A 28 PERSONAS
+                    </div>
+                    <table class="precio-table">
+                        <thead>
+                            <tr>
+                                <th>Modalidad</th>
+                                <th>Duración</th>
+                                <th>Precio por persona</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="modalidad-nombre">🔥 Camino Completo</td>
+                                <td>7 días</td>
+                                <td class="precio-destacado">250€</td>
+                            </tr>
+                            <tr>
+                                <td class="modalidad-nombre">🔴 Sendero de Conexión</td>
+                                <td>3 días</td>
+                                <td class="precio-destacado">100€</td>
+                            </tr>
+                            <tr>
+                                <td class="modalidad-nombre">🟠 Sendero de Expresión</td>
+                                <td>2 días</td>
+                                <td class="precio-destacado">70€</td>
+                            </tr>
+                            <tr>
+                                <td class="modalidad-nombre">🟡 Sendero de Visión</td>
+                                <td>2 días</td>
+                                <td class="precio-destacado">70€</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Grupos Medianos -->
+            <div class="seccion-card fade-in">
+                <div class="precio-grupo">
+                    <div class="precio-header">
+                        GRUPOS DE 7 A 14 PERSONAS
+                    </div>
+                    <table class="precio-table">
+                        <thead>
+                            <tr>
+                                <th>Modalidad</th>
+                                <th>Duración</th>
+                                <th>Precio por persona</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="modalidad-nombre">🔥 Camino Completo</td>
+                                <td>7 días</td>
+                                <td class="precio-destacado">350€</td>
+                            </tr>
+                            <tr>
+                                <td class="modalidad-nombre">🔴 Sendero de Conexión</td>
+                                <td>3 días</td>
+                                <td class="precio-destacado">180€</td>
+                            </tr>
+                            <tr>
+                                <td class="modalidad-nombre">🟠 Sendero de Expresión</td>
+                                <td>2 días</td>
+                                <td class="precio-destacado">120€</td>
+                            </tr>
+                            <tr>
+                                <td class="modalidad-nombre">🟡 Sendero de Visión</td>
+                                <td>2 días</td>
+                                <td class="precio-destacado">120€</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sesiones Privadas -->
+            <div class="seccion-card fade-in">
+                <div class="precio-grupo">
+                    <div class="precio-header">
+                        SESIONES PRIVADAS Y PERSONALIZADAS
+                    </div>
+                    <table class="precio-table">
+                        <thead>
+                            <tr>
+                                <th>Modalidad</th>
+                                <th>Duración</th>
+                                <th>Precio total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="modalidad-nombre">🔥 Camino Completo</td>
+                                <td>7 días</td>
+                                <td><span style="font-size: 0.9rem; color: #666; font-style: italic;">incluye alojamiento y alimentación consciente</span><br><span class="precio-destacado">950€</span></td>
+                            </tr>
+                            <tr>
+                                <td class="modalidad-nombre">🔴 Sendero de Conexión</td>
+                                <td>3 días</td>
+                                <td><span style="font-size: 0.9rem; color: #666; font-style: italic;">incluye alojamiento y alimentación consciente</span><br><span class="precio-destacado">550€</span></td>
+                            </tr>
+                            <tr>
+                                <td class="modalidad-nombre">🟠 Sendero de Expresión</td>
+                                <td>2 días</td>
+                                <td><span style="font-size: 0.9rem; color: #666; font-style: italic;">incluye alojamiento y alimentación consciente</span><br><span class="precio-destacado">350€</span></td>
+                            </tr>
+                            <tr>
+                                <td class="modalidad-nombre">🟡 Sendero de Visión</td>
+                                <td>2 días</td>
+                                <td><span style="font-size: 0.9rem; color: #666; font-style: italic;">incluye alojamiento y alimentación consciente</span><br><span class="precio-destacado">350€</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Servicios Adicionales -->
+            <div class="seccion-card fade-in">
+                <h2 class="seccion-title">Servicios Adicionales</h2>
+                <p class="seccion-subtitle">Complementa tu experiencia transformadora</p>
+                
+                <div class="servicio-extra">
+                    <h4>🏠 HEAL = Actividades+Hospedaje + Alimentación Consciente</h4>
+                    <p><strong>+100€ por día</strong></p>
+                    <p>Grupos de 7 a 28 personas.</p>
+                    <p>Alojamiento completo con alimentación consciente y nutritiva, diseñada para potenciar tu proceso de transformación energética.</p>
+                </div>
+                
+                <div class="servicio-extra">
+                    <h4>📍 Desplazamientos</h4>
+                    <p><strong>Para grupos fuera de mi ubicación</strong></p>
+                    <p>Gastos de viaje y hospedaje a cargo del cliente. Facilitamos la experiencia KAIRÓS donde tú lo necesites.</p>
+                </div>
+            </div>
+
+            <!-- Información Importante -->
+            <div class="seccion-card fade-in">
+                <div class="info-destacada">
+                    <h3>💫 Inversión en tu Transformación</h3>
+                    <p>Cada modalidad está diseñada para aprovechar el momento perfecto de tu crecimiento personal. Los precios incluyen todas las sesiones, materiales y seguimiento personalizado durante el proceso.</p>
+                </div>
+                
+                <div class="info-destacada">
+                    <h3>🎯 Flexibilidad Total</h3>
+                    <p>Adaptamos cada experiencia a las necesidades específicas de tu grupo. Consulta por modalidades personalizadas y descuentos por reservas anticipadas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contacto -->
+        <div class="contacto-footer fade-in">
+            <h3>¿Listo para Comenzar tu Transformación?</h3>
+            <p>
+                Consulta disponibilidad, reserva tu modalidad y descubre el poder del momento presente en tu vida
+            </p>
+            <a href="https://wa.me/34676437076" class="whatsapp-link" target="_blank">
+                📱 delaVidDa WhatsApp - 676 43 70 76
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Animación de aparición en scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = `${index * 0.2}s`;
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
